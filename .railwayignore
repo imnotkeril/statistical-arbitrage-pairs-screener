@@ -1,0 +1,8 @@
+# Ignore frontend for backend-only deployment
+frontend/
+node_modules/
+package.json
+package-lock.json
+.cursor/
+cache/
+*.log
