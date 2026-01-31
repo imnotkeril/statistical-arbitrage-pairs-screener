@@ -38,6 +38,9 @@ cache/
 .cursor/
 debug.log
 
+# Railway
+.railway/
+
 # Environment
 .env
 .env.local
