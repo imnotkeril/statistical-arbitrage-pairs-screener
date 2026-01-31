@@ -1,0 +1,38 @@
+"""
+Configuration settings for the application
+"""
+from pydantic_settings import BaseSettings
+from typing import Optional
+import os
+
+class Settings(BaseSettings):
+    """Application settings loaded from environment variables"""
+    
+    # Database
+    # Default to SQLite for a single-file persistence experience.
+    # Override via .env / env var DATABASE_URL when needed (e.g., PostgreSQL on a server).
+    DATABASE_URL: str = "sqlite:///./data/stat_arb.db"
+    
+    # Redis (optional)
+    REDIS_URL: Optional[str] = "redis://localhost:6379"
+    
+    # Binance API
+    BINANCE_API_KEY: Optional[str] = None
+    BINANCE_API_SECRET: Optional[str] = None
+    
+    # Screener defaults
+    SCREENER_MIN_CORRELATION: float = 0.80
+    SCREENER_MAX_ADF_PVALUE: float = 0.10
+    SCREENER_LOOKBACK_DAYS: int = 365  # 365 days for crypto (24/7 trading)
+    SCREENER_MIN_VOLUME_USD: float = 1_000_000  # 1M USD minimum volume
+    SCREENER_MAX_ASSETS: int = 100  # Limit to top 100 assets by volume
+    
+    # API
+    API_V1_PREFIX: str = "/api/v1"
+    
+    class Config:
+        env_file = ".env"
+        case_sensitive = True
+
+
+settings = Settings()
