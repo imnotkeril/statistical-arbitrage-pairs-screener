@@ -23,8 +23,9 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Remove default nginx config
 RUN rm -f /etc/nginx/conf.d/default.conf
 
-# Create nginx config template (nginx:alpine automatically processes templates with envsubst)
-# The template will be processed at container startup
+# Create nginx config template
+# nginx:alpine automatically processes templates in /etc/nginx/templates/ at startup
+# Railway sets $PORT environment variable (e.g., 8080)
 RUN echo 'server { \
     listen ${PORT}; \
     server_name _; \
@@ -35,7 +36,7 @@ RUN echo 'server { \
     } \
 }' > /etc/nginx/templates/default.conf.template
 
-# Set default PORT (Railway will override this with $PORT env var)
-ENV PORT=80
-
-EXPOSE 80
+# Railway automatically sets PORT env var (e.g., 8080)
+# No need to set default, Railway will provide it
+# EXPOSE is just metadata, Railway uses $PORT from env
+EXPOSE 8080
