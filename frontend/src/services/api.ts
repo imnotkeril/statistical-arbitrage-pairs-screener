@@ -5,8 +5,8 @@ import axios from 'axios';
 
 // Use proxy in development, direct URL in production
 // In dev mode, use empty baseURL so proxy handles /api prefix
-// In production, use full URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : 'http://localhost:8000');
+// In production, use full URL from environment variable or default to Railway backend
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '' : '');
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
