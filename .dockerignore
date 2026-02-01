@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Node (если есть)
+node_modules/
+npm-debug.log*
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+.cache/
+
+# Project specific
+backend/cache/
+backend/data/
+frontend/dist/
+frontend/node_modules/
