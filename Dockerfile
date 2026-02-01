@@ -9,5 +9,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем весь проект
 COPY . .
 
+# Переходим в директорию backend
+WORKDIR /app/backend
+
 # Запускаем приложение
-CMD ["sh", "-c", "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"]
+# Используем shell для подстановки переменной окружения $PORT
+CMD ["sh", "-c", "python -m uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
