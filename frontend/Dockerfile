@@ -20,9 +20,14 @@ FROM nginx:alpine
 # Copy built files
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Remove default nginx config
+RUN rm -f /etc/nginx/conf.d/default.conf
+
 # Create nginx config template (nginx:alpine automatically processes templates with envsubst)
+# The template will be processed at container startup
 RUN echo 'server { \
     listen ${PORT}; \
+    server_name _; \
     root /usr/share/nginx/html; \
     index index.html; \
     location / { \
@@ -30,7 +35,7 @@ RUN echo 'server { \
     } \
 }' > /etc/nginx/templates/default.conf.template
 
-# Set default PORT (Railway will override this)
+# Set default PORT (Railway will override this with $PORT env var)
 ENV PORT=80
 
 EXPOSE 80
