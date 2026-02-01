@@ -24,8 +24,6 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 RUN rm -f /etc/nginx/conf.d/default.conf
 
 # Create nginx config template
-# nginx:alpine automatically processes templates in /etc/nginx/templates/ at startup
-# Railway sets $PORT environment variable (e.g., 8080)
 RUN echo 'server { \
     listen ${PORT}; \
     server_name _; \
@@ -36,7 +34,10 @@ RUN echo 'server { \
     } \
 }' > /etc/nginx/templates/default.conf.template
 
+# Copy and make start script executable
+COPY start-nginx.sh /start-nginx.sh
+RUN chmod +x /start-nginx.sh
+
 # Railway automatically sets PORT env var (e.g., 8080)
-# No need to set default, Railway will provide it
-# EXPOSE is just metadata, Railway uses $PORT from env
-EXPOSE 8080
+# Use custom start script to ensure PORT is processed correctly
+CMD ["/start-nginx.sh"]
