@@ -38,6 +38,7 @@ RUN echo 'server { \
 COPY start-nginx.sh /start-nginx.sh
 RUN chmod +x /start-nginx.sh
 
+# Override ENTRYPOINT to use our custom script
 # Railway automatically sets PORT env var (e.g., 8080)
-# Use custom start script to ensure PORT is processed correctly
+ENTRYPOINT []
 CMD ["/start-nginx.sh"]
