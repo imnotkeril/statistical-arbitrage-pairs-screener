@@ -33,6 +33,9 @@ echo "server {\n\
 }" > /etc/nginx/conf.d/default.conf\n\
 exec nginx -g "daemon off;"' > /start.sh && chmod +x /start.sh
 
+# Override nginx entrypoint
+ENTRYPOINT []
+
 EXPOSE 80
 
 CMD ["/start.sh"]
