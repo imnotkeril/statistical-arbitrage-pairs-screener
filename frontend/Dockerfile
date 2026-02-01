@@ -9,9 +9,9 @@ RUN npm ci
 # Copy source files
 COPY . .
 
-# Build with environment variable (Railway passes it as build arg)
-ARG VITE_API_URL
-ENV VITE_API_URL=${VITE_API_URL}
+# Build with environment variable
+# Railway automatically makes env vars available during build
+ENV VITE_API_URL=${VITE_API_URL:-}
 RUN npm run build
 
 # Production stage
